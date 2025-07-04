@@ -29,8 +29,8 @@ async function greet() {
     <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
 
     <form class="row" @submit.prevent="greet">
-      <input id="greet-input" v-model="name" placeholder="Enter a name..." />
-      <button type="submit">Greet</button>
+      <n-input id="greet-input" v-model:value="name" placeholder="Enter a name..." />
+      <n-button attr-type="submit">nGreet</n-button>
     </form>
     <p>{{ greetMsg }}</p>
   </main>
@@ -135,6 +135,7 @@ button {
 
 #greet-input {
   margin-right: 5px;
+  width: 300px;
 }
 
 @media (prefers-color-scheme: dark) {

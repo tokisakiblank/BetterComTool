@@ -1,2 +1,2 @@
 # BetterComTool
-A Tauri+Vue3+AntDV ComTool
+A [Tauri](https://tauri.app/)+[Vue3](https://vuejs.org/)+[NaiveUI](https://www.naiveui.com/) ComTool
