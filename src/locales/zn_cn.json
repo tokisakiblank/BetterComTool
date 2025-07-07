@@ -1,0 +1,6 @@
+{
+    "title": "欢迎使用应用程序",
+    "description": "这是一个示例应用程序，用于演示本地化功能。",
+    "welcome": "欢迎使用 Tauri 和 Vue",
+    "info": "点击 Tauri, Vite, 和 Vue 图标以了解更多."
+}

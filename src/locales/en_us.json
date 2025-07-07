@@ -1,0 +1,6 @@
+{
+    "title": "Welcome to the Application",
+    "description": "This is a sample application to demonstrate localization.",
+    "welcome": "Welcome to Tauri + Vue",
+    "info": "Click on the Tauri, Vite, and Vue logos to learn more."
+}

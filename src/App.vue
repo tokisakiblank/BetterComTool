@@ -1,6 +1,33 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useMainStore } from "./store/store";
 import { invoke } from "@tauri-apps/api/core";
+
+const store = useMainStore();
+
+const { t , availableLocales} = useI18n({ useScope: 'global' });
+
+interface LanguageOption {
+  label: () => string;
+  value: string;
+}
+
+const lang_option: LanguageOption[] = [];
+
+for (const locale of availableLocales) {
+  lang_option.push({
+    label: ():string => {switch (locale) {
+      case 'en-us':
+        return 'English';
+      case 'zh-cn':
+        return '中文';
+      default:
+        return 'Englisth';
+    }},
+    value: locale
+  });
+}
 
 const greetMsg = ref("");
 const name = ref("");
@@ -13,7 +40,18 @@ async function greet() {
 
 <template>
   <main class="container">
-    <h1>Welcome to Tauri + Vue</h1>
+    <h1>{{ t("welcome") }}</h1>
+    <h1>{{ t('title') }}</h1>
+    <p>{{ t("description") }}</p>
+    <p>{{ store.language_display }}</p>
+    
+    <n-select
+      v-model:value="store.language_code"
+      :options="lang_option"
+      placeholder="Select a language"
+      style="width: 200px; margin-bottom: 20px;"
+      @update:value="store.language_code = $event"
+    ></n-select>
 
     <div class="row">
       <a href="https://vitejs.dev" target="_blank">
@@ -26,7 +64,7 @@ async function greet() {
         <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
       </a>
     </div>
-    <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
+    <p>{{ t("info") }}</p>
 
     <form class="row" @submit.prevent="greet">
       <n-input id="greet-input" v-model:value="name" placeholder="Enter a name..." />
