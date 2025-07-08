@@ -1,0 +1,11 @@
+{
+    "info": {
+        "title": "Welcome to the Application",
+        "info" : "Click on the Tauri, Vite, and Vue logos to learn more.",
+        "description": "This is a sample application to demonstrate localization.",
+        "welcome": "Welcome to Tauri + Vue",
+        "selectLanguage": "Select a language",
+        "greet_input_placeholder": "Enter a name...",
+        "insert_name": "Insert name {name}"
+    }
+}

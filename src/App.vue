@@ -1,33 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { lang_option } from "./locales/i18n";
 import { useMainStore } from "./store/store";
 import { invoke } from "@tauri-apps/api/core";
 
 const store = useMainStore();
 
-const { t , availableLocales} = useI18n({ useScope: 'global' });
-
-interface LanguageOption {
-  label: () => string;
-  value: string;
-}
-
-const lang_option: LanguageOption[] = [];
-
-for (const locale of availableLocales) {
-  lang_option.push({
-    label: ():string => {switch (locale) {
-      case 'en-us':
-        return 'English';
-      case 'zh-cn':
-        return '中文';
-      default:
-        return 'Englisth';
-    }},
-    value: locale
-  });
-}
+const { t } = useI18n({ useScope: 'global' });
 
 const greetMsg = ref("");
 const name = ref("");
@@ -36,21 +16,20 @@ async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
   greetMsg.value = await invoke("greet", { name: name.value });
 }
+
 </script>
 
 <template>
   <main class="container">
-    <h1>{{ t("welcome") }}</h1>
-    <h1>{{ t('title') }}</h1>
-    <p>{{ t("description") }}</p>
-    <p>{{ store.language_display }}</p>
-    
+    <h1>{{ t("info.welcome") }}</h1>
+    <h1>{{ t('info.title') }}</h1>
+    <p>{{ t("info.description") }}</p>
+
     <n-select
       v-model:value="store.language_code"
       :options="lang_option"
-      placeholder="Select a language"
-      style="width: 200px; margin-bottom: 20px;"
-      @update:value="store.language_code = $event"
+      :placeholder="t('info.selectLanguage')"
+      style="width: 200px; margin-bottom: 20px; align-self: center;"
     ></n-select>
 
     <div class="row">
@@ -64,12 +43,13 @@ async function greet() {
         <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
       </a>
     </div>
-    <p>{{ t("info") }}</p>
+    <p>{{ t("info.info") }}</p>
 
     <form class="row" @submit.prevent="greet">
-      <n-input id="greet-input" v-model:value="name" placeholder="Enter a name..." />
+      <n-input id="greet-input" v-model:value="name" :placeholder="t('info.greet_input_placeholder')" />
       <n-button attr-type="submit">nGreet</n-button>
     </form>
+    <p v-show="name"> {{ t("info.insert_name", {name: name}) }}</p>
     <p>{{ greetMsg }}</p>
   </main>
 </template>

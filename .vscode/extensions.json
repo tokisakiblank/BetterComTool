@@ -3,6 +3,7 @@
     "Vue.volar",
     "tauri-apps.tauri-vscode",
     "rust-lang.rust-analyzer",
-    "forestxie.naive-ui-helper"
+    "forestxie.naive-ui-helper",
+    "lokalise.i18n-ally"
   ]
 }
