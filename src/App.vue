@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n";
 import { lang_option } from "./locales/i18n";
 import { useMainStore } from "./store/store";
 import { invoke } from "@tauri-apps/api/core";
+import Serial from "./Components/Serial.vue"
 
 const store = useMainStore();
 
@@ -21,10 +22,13 @@ async function greet() {
 
 <template>
   <main class="container">
+    <n-notification-provider :max="2" placement='top'>
+      <Serial/>
+    </n-notification-provider>
     <h1>{{ t("info.welcome") }}</h1>
     <h1>{{ t('info.title') }}</h1>
     <p>{{ t("info.description") }}</p>
-
+    
     <n-select
       v-model:value="store.language_code"
       :options="lang_option"
@@ -65,6 +69,7 @@ async function greet() {
 
 </style>
 <style>
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -120,37 +125,6 @@ h1 {
   text-align: center;
 }
 
-input,
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-}
-
-button {
-  cursor: pointer;
-}
-
-button:hover {
-  border-color: #396cd8;
-}
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
-}
-
-input,
-button {
-  outline: none;
-}
-
 #greet-input {
   margin-right: 5px;
   width: 300px;
@@ -164,15 +138,6 @@ button {
 
   a:hover {
     color: #24c8db;
-  }
-
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
-  }
-  button:active {
-    background-color: #0f0f0f69;
   }
 }
 
