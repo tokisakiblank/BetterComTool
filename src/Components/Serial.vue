@@ -3,12 +3,15 @@
     <n-select 
         v-model:value="serial.options.path"
         :options="port_options"
+        :disabled=serial_status
         id="serial_port_select"
         filterable
         tag
     />
     <n-select 
         v-model:value="serial.options.baudRate"
+        @update:value="baudToNumber"
+        :disabled=serial_status
         :options="baudrate_options"
         id="baud_rate_select"
         filterable
@@ -64,6 +67,20 @@ function showNotification(type: 'success' | 'warning' | 'error', title: string, 
         content: message,
         duration: 2000,
     });
+}
+
+function baudToNumber(value: string | number) {
+    let baud : number
+
+    if (typeof value === "number") {
+        baud = value
+    } else if ( typeof value === "string" && value.trim() !== "") {
+        const n = Number(value)
+        baud = Number.isFinite(n) ? Math.abs(n) : 115200
+    } else {
+        baud = 115200
+    }
+    serial.value.options.baudRate = baud
 }
 
 function toggleSerialPort() {
